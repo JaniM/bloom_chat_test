@@ -1,0 +1,10 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<pre class="code">
+
+<span class="comment"># RULE 2</span>
+ 
+<span class="ident">new_heartbeats</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">heartbeats</span> <span class="punct">*</span> <span class="ident">heartbeat_timer</span><span class="punct">).</span><span class="ident">lefts</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">h</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">h</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="ident">time</span><span class="punct">,</span> <span class="constant">true</span><span class="punct">]</span> <span class="keyword">if</span> <span class="punct">(</span><span class="keyword">not</span> <span class="ident">h</span><span class="punct">.</span><span class="ident">isactive</span><span class="punct">)</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+</body></html>

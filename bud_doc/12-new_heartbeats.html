@@ -1,0 +1,7 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<h1>Rule 12</h1><br>
+<pre class="code" style='font-size:20px'>
+<span class="ident">new_heartbeats</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">heartbeats</span> <span class="punct">*</span> <span class="ident">heartbeat_timer</span><span class="punct">).</span><span class="ident">lefts</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">h</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">h</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">(</span><span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span><span class="punct">.</span><span class="ident">to_f</span> <span class="punct">*</span> <span class="number">1000.0</span><span class="punct">).</span><span class="ident">to_i</span><span class="punct">,</span> <span class="constant">true</span><span class="punct">]</span> <span class="keyword">if</span> <span class="punct">(</span><span class="keyword">not</span> <span class="ident">h</span><span class="punct">.</span><span class="ident">isactive</span><span class="punct">)</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>

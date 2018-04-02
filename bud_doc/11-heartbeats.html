@@ -1,0 +1,7 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<h1>Rule 11</h1><br>
+<pre class="code" style='font-size:20px'>
+<span class="ident">heartbeats</span> <span class="punct">&lt;</span> <span class="punct">(+-(</span><span class="ident">heartbeats</span> <span class="punct">*</span> <span class="ident">proto</span><span class="punct">.</span><span class="ident">c_heartbeat</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:addr</span> <span class="punct">=&gt;</span> <span class="symbol">:rcv</span><span class="punct">).</span><span class="ident">lefts</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">u</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">u</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">(</span><span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span><span class="punct">.</span><span class="ident">to_f</span> <span class="punct">*</span> <span class="number">1000.0</span><span class="punct">).</span><span class="ident">to_i</span><span class="punct">,</span> <span class="constant">false</span><span class="punct">]</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>

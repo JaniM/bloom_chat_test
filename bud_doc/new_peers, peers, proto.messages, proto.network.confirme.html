@@ -1,0 +1,38 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<pre class="code">
+
+<span class="comment"># RULE 0</span>
+ 
+<span class="ident">new_peers</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">proto</span><span class="punct">.</span><span class="ident">r_server_connect</span><span class="punct">.</span><span class="ident">notin</span><span class="punct">(</span><span class="ident">peers</span><span class="punct">))</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 1</span>
+ 
+<span class="ident">peers</span> <span class="punct">&lt;</span> <span class="punct">(+</span><span class="ident">new_peers</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 7</span>
+ 
+<span class="comment"># RULE 6</span>
+ 
+<span class="comment"># RULE 5</span>
+ 
+<span class="ident">network</span><span class="punct">.</span><span class="ident">push</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">ifaces</span> <span class="punct">*</span> <span class="ident">s_server_connect</span><span class="punct">).</span><span class="ident">pairs</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">iface</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">iface</span><span class="punct">.</span><span class="ident">ipp</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">rcv</span><span class="punct">,</span> <span class="punct">([&quot;</span><span class="string">SERVER_CONNECT</span><span class="punct">&quot;]</span> <span class="punct">+</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">msg</span><span class="punct">)]</span>
+<span class="keyword">end</span><span class="punct">)</span>
+<span class="ident">network</span><span class="punct">.</span><span class="ident">push</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">ifaces</span> <span class="punct">*</span> <span class="ident">s_user_connect</span><span class="punct">).</span><span class="ident">pairs</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">iface</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">iface</span><span class="punct">.</span><span class="ident">ipp</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">rcv</span><span class="punct">,</span> <span class="punct">([&quot;</span><span class="string">USER_CONNECT</span><span class="punct">&quot;]</span> <span class="punct">+</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">msg</span><span class="punct">)]</span>
+<span class="keyword">end</span><span class="punct">)</span>
+<span class="ident">network</span><span class="punct">.</span><span class="ident">push</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">ifaces</span> <span class="punct">*</span> <span class="ident">s_user_message</span><span class="punct">).</span><span class="ident">pairs</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">iface</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">iface</span><span class="punct">.</span><span class="ident">ipp</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">rcv</span><span class="punct">,</span> <span class="punct">([&quot;</span><span class="string">USER_MESSAGE</span><span class="punct">&quot;]</span> <span class="punct">+</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">msg</span><span class="punct">)]</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 3</span>
+ 
+<span class="comment"># RULE 2</span>
+ 
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_user_connect</span> <span class="punct">&lt;</span> <span class="punct">(+(</span><span class="ident">peers</span> <span class="punct">*</span> <span class="ident">new_peers</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">p</span><span class="punct">,</span> <span class="ident">c</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">[</span><span class="ident">p</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">]]</span> <span class="punct">})</span>
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_user_connect</span> <span class="punct">&lt;</span> <span class="punct">(+(</span><span class="ident">peers</span> <span class="punct">*</span> <span class="ident">new_peers</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">p</span><span class="punct">,</span> <span class="ident">c</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">p</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">[</span><span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">]]</span> <span class="punct">})</span></pre>
+</body></html>

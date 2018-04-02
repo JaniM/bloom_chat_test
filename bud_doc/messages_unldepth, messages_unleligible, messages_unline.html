@@ -1,0 +1,40 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<pre class="code">
+
+<span class="comment"># RULE 19</span>
+ 
+<span class="ident">messages_unldepth</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">messages_unleligible</span><span class="punct">.</span><span class="ident">notin</span><span class="punct">(</span><span class="ident">messages_unlinearizable</span><span class="punct">,</span> <span class="symbol">:id</span> <span class="punct">=&gt;</span> <span class="symbol">:id</span><span class="punct">).</span><span class="ident">group</span><span class="punct">([</span><span class="symbol">:id</span><span class="punct">],</span> <span class="ident">max</span><span class="punct">(</span><span class="symbol">:depth</span><span class="punct">)))</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 16</span>
+ 
+<span class="comment"># RULE 15</span>
+ 
+<span class="ident">messages_unleligible</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">messages_unlinearized</span><span class="punct">.</span><span class="ident">notin</span><span class="punct">(</span><span class="ident">messages_extremities</span><span class="punct">,</span> <span class="symbol">:id</span> <span class="punct">=&gt;</span> <span class="symbol">:id</span><span class="punct">).</span><span class="ident">pro</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">u</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">u</span><span class="punct">.</span><span class="ident">id</span><span class="punct">,</span> <span class="ident">u</span><span class="punct">.</span><span class="ident">id</span><span class="punct">,</span> <span class="number">0</span><span class="punct">]</span>
+<span class="keyword">end</span><span class="punct">)</span>
+<span class="ident">messages_unleligible</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">messages_unlparents</span><span class="punct">.</span><span class="ident">notin</span><span class="punct">(</span><span class="ident">messages_extremities</span><span class="punct">,</span> <span class="symbol">:parent</span> <span class="punct">=&gt;</span> <span class="symbol">:id</span><span class="punct">))</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 17</span>
+ 
+<span class="ident">messages_unlinearizable</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">messages_unlparents</span> <span class="punct">*</span> <span class="ident">messages_extremities</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:parent</span> <span class="punct">=&gt;</span> <span class="symbol">:id</span><span class="punct">)</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">x</span><span class="punct">,</span> <span class="ident">y</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">x</span><span class="punct">.</span><span class="ident">id</span><span class="punct">]</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 21</span>
+ 
+<span class="comment"># RULE 14</span>
+ 
+<span class="ident">messages_unlinearized</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">messages_new</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">x</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">x</span><span class="punct">.</span><span class="ident">id</span><span class="punct">]</span> <span class="punct">})</span>
+<span class="ident">messages_unlinearized</span> <span class="punct">&lt;</span> <span class="punct">(-(</span><span class="ident">messages_unlinearized</span> <span class="punct">*</span> <span class="ident">messages_unldepth</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:id</span> <span class="punct">=&gt;</span> <span class="symbol">:id</span><span class="punct">).</span><span class="ident">lefts</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 18</span>
+ 
+<span class="ident">messages_unlparents</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">messages_unleligible</span> <span class="punct">*</span> <span class="ident">messages_relations</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:parent</span> <span class="punct">=&gt;</span> <span class="symbol">:id</span><span class="punct">)</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">u</span><span class="punct">,</span> <span class="ident">r</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">u</span><span class="punct">.</span><span class="ident">id</span><span class="punct">,</span> <span class="ident">r</span><span class="punct">.</span><span class="ident">target</span><span class="punct">,</span> <span class="punct">(</span><span class="ident">u</span><span class="punct">.</span><span class="ident">depth</span> <span class="punct">+</span> <span class="number">1</span><span class="punct">)]</span> <span class="keyword">if</span> <span class="punct">(</span><span class="ident">r</span><span class="punct">.</span><span class="ident">target</span> <span class="punct">!=</span> <span class="punct">-</span><span class="number">1</span><span class="punct">)</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+</body></html>

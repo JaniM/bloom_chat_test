@@ -1,0 +1,131 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<pre class="code">
+
+<span class="comment"># RULE 15</span>
+ 
+<span class="comment"># RULE 7</span>
+ 
+<span class="ident">dead_peers</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">proto</span><span class="punct">.</span><span class="ident">r_user_disconnect</span><span class="punct">)</span>
+<span class="ident">dead_peers</span> <span class="punct">&lt;=</span> <span class="punct">(((</span><span class="ident">heartbeat_timer</span> <span class="punct">*</span> <span class="ident">heartbeats</span><span class="punct">)</span> <span class="punct">*</span> <span class="ident">peers</span><span class="punct">).</span><span class="ident">combos</span><span class="punct">(</span><span class="ident">heartbeats</span><span class="punct">.</span><span class="ident">addr</span> <span class="punct">=&gt;</span> <span class="ident">peers</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">)</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">_</span><span class="punct">,</span> <span class="ident">m</span><span class="punct">,</span> <span class="ident">p</span><span class="punct">|</span>
+  <span class="keyword">if</span> <span class="ident">m</span><span class="punct">.</span><span class="ident">isactive</span> <span class="keyword">and</span> <span class="punct">((</span><span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span><span class="punct">.</span><span class="ident">to_f</span> <span class="punct">*</span> <span class="number">1000.0</span><span class="punct">).</span><span class="ident">to_i</span> <span class="punct">&gt;=</span> <span class="punct">(</span><span class="ident">m</span><span class="punct">.</span><span class="ident">time</span> <span class="punct">+</span> <span class="ident">p</span><span class="punct">.</span><span class="ident">lifetime</span><span class="punct">))</span> <span class="keyword">then</span>
+    <span class="punct">[</span><span class="ident">m</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">]</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 18</span>
+ 
+<span class="ident">die</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">stdio</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">x</span><span class="punct">|</span>
+  <span class="keyword">if</span> <span class="punct">(</span><span class="ident">x</span><span class="punct">.</span><span class="ident">line</span><span class="punct">[</span><span class="number">0</span><span class="punct">,</span> <span class="number">5</span><span class="punct">]</span> <span class="punct">==</span> <span class="punct">&quot;</span><span class="string">/quit</span><span class="punct">&quot;)</span> <span class="keyword">then</span>
+    <span class="constant">Thread</span><span class="punct">.</span><span class="ident">new</span> <span class="keyword">do</span>
+      <span class="ident">sleep</span><span class="punct">(</span><span class="number">5.0</span><span class="punct">)</span>
+      <span class="constant">Kernel</span><span class="punct">.</span><span class="ident">exit</span><span class="punct">(</span><span class="number">0</span><span class="punct">)</span>
+    <span class="keyword">end</span>
+    <span class="punct">[</span><span class="constant">true</span><span class="punct">]</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 16</span>
+ 
+<span class="comment"># RULE 13</span>
+ 
+<span class="comment"># RULE 11</span>
+ 
+<span class="comment"># RULE 10</span>
+ 
+<span class="ident">heartbeats</span> <span class="punct">&lt;</span> <span class="punct">(+-</span><span class="ident">new_peers</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">u</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">u</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">(</span><span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span><span class="punct">.</span><span class="ident">to_f</span> <span class="punct">*</span> <span class="number">1000.0</span><span class="punct">).</span><span class="ident">to_i</span><span class="punct">,</span> <span class="constant">false</span><span class="punct">]</span> <span class="punct">})</span>
+<span class="ident">heartbeats</span> <span class="punct">&lt;</span> <span class="punct">(+-(</span><span class="ident">heartbeats</span> <span class="punct">*</span> <span class="ident">proto</span><span class="punct">.</span><span class="ident">c_heartbeat</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:addr</span> <span class="punct">=&gt;</span> <span class="symbol">:rcv</span><span class="punct">).</span><span class="ident">lefts</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">u</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">u</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">(</span><span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span><span class="punct">.</span><span class="ident">to_f</span> <span class="punct">*</span> <span class="number">1000.0</span><span class="punct">).</span><span class="ident">to_i</span><span class="punct">,</span> <span class="constant">false</span><span class="punct">]</span>
+<span class="keyword">end</span><span class="punct">)</span>
+<span class="ident">heartbeats</span> <span class="punct">&lt;</span> <span class="punct">(+-</span><span class="ident">new_heartbeats</span><span class="punct">)</span>
+<span class="ident">heartbeats</span> <span class="punct">&lt;</span> <span class="punct">(-(</span><span class="ident">dead_peers</span> <span class="punct">*</span> <span class="ident">heartbeats</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:addr</span> <span class="punct">=&gt;</span> <span class="symbol">:addr</span><span class="punct">).</span><span class="ident">rights</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 24</span>
+ 
+<span class="comment"># RULE 23</span>
+ 
+<span class="comment"># RULE 22</span>
+ 
+<span class="comment"># RULE 21</span>
+ 
+<span class="ident">iof</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">proto</span><span class="punct">.</span><span class="ident">r_user_message</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">m</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">pretty_print</span><span class="punct">(</span><span class="ident">m</span><span class="punct">)]</span> <span class="punct">})</span>
+<span class="ident">iof</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">proto</span><span class="punct">.</span><span class="ident">r_user_connect</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">u</span><span class="punct">|</span> <span class="punct">[((&quot;</span><span class="string">User </span><span class="punct">&quot;</span> <span class="punct">+</span> <span class="ident">u</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">)</span> <span class="punct">+</span> <span class="punct">&quot;</span><span class="string"> joined</span><span class="punct">&quot;)]</span> <span class="punct">})</span>
+<span class="ident">iof</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">dead_peers</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">u</span><span class="punct">|</span> <span class="punct">[((&quot;</span><span class="string">User </span><span class="punct">&quot;</span> <span class="punct">+</span> <span class="ident">u</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">)</span> <span class="punct">+</span> <span class="punct">&quot;</span><span class="string"> left</span><span class="punct">&quot;)]</span> <span class="punct">})</span>
+<span class="ident">iof</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">proto</span><span class="punct">.</span><span class="ident">c_user_disconnect</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">m</span><span class="punct">|</span> <span class="punct">[(&quot;</span><span class="string">[QUIT] Node aware: </span><span class="punct">&quot;</span> <span class="punct">+</span> <span class="ident">m</span><span class="punct">.</span><span class="ident">rcv</span><span class="punct">)]</span> <span class="punct">})</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 12</span>
+ 
+<span class="ident">new_heartbeats</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">heartbeats</span> <span class="punct">*</span> <span class="ident">heartbeat_timer</span><span class="punct">).</span><span class="ident">lefts</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">h</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">h</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">(</span><span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span><span class="punct">.</span><span class="ident">to_f</span> <span class="punct">*</span> <span class="number">1000.0</span><span class="punct">).</span><span class="ident">to_i</span><span class="punct">,</span> <span class="constant">true</span><span class="punct">]</span> <span class="keyword">if</span> <span class="punct">(</span><span class="keyword">not</span> <span class="ident">h</span><span class="punct">.</span><span class="ident">isactive</span><span class="punct">)</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 6</span>
+ 
+<span class="comment"># RULE 1</span>
+ 
+<span class="ident">new_peers</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">server_new_peers</span><span class="punct">)</span>
+<span class="ident">new_peers</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">proto</span><span class="punct">.</span><span class="ident">r_user_connect</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">c</span><span class="punct">|</span> <span class="ident">c</span> <span class="keyword">if</span> <span class="punct">(</span><span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span> <span class="punct">!=</span> <span class="ident">ip_port</span><span class="punct">)</span> <span class="punct">})</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 9</span>
+ 
+<span class="comment"># RULE 8</span>
+ 
+<span class="ident">peers</span> <span class="punct">&lt;</span> <span class="punct">(+</span><span class="ident">new_peers</span><span class="punct">)</span>
+<span class="ident">peers</span> <span class="punct">&lt;</span> <span class="punct">(-(</span><span class="ident">peers</span> <span class="punct">*</span> <span class="ident">dead_peers</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:addr</span> <span class="punct">=&gt;</span> <span class="symbol">:addr</span><span class="punct">).</span><span class="ident">lefts</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 14</span>
+ 
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_heartbeat</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">new_heartbeats</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">x</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">x</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">]</span> <span class="punct">})</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 4</span>
+ 
+<span class="comment"># RULE 3</span>
+ 
+<span class="comment"># RULE 2</span>
+ 
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_user_connect</span> <span class="punct">&lt;</span> <span class="punct">(+(</span><span class="ident">peers</span> <span class="punct">*</span> <span class="ident">server_new_peers</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">p</span><span class="punct">,</span> <span class="ident">c</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="ident">p</span><span class="punct">]</span> <span class="punct">})</span>
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_user_connect</span> <span class="punct">&lt;</span> <span class="punct">(+(</span><span class="ident">peers</span> <span class="punct">*</span> <span class="ident">server_new_peers</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">p</span><span class="punct">,</span> <span class="ident">c</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">p</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="ident">c</span><span class="punct">]</span> <span class="punct">})</span>
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_user_connect</span> <span class="punct">&lt;</span> <span class="punct">(+</span><span class="ident">server_new_peers</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">c</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">[</span><span class="ident">ip_port</span><span class="punct">,</span> <span class="attribute">@lifetime</span><span class="punct">]]</span> <span class="punct">})</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 19</span>
+ 
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_user_disconnect</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">peers</span> <span class="punct">*</span> <span class="ident">die</span><span class="punct">).</span><span class="ident">lefts</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">p</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">p</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">[</span><span class="ident">ip_port</span><span class="punct">]]</span> <span class="punct">})</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 20</span>
+ 
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_user_message</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">sent_messages</span> <span class="punct">*</span> <span class="ident">peers</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">msg</span><span class="punct">,</span> <span class="ident">peer</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">peer</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="ident">msg</span><span class="punct">]</span> <span class="punct">})</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 17</span>
+ 
+<span class="ident">sent_messages</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">stdio</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">s</span><span class="punct">|</span>
+  <span class="keyword">if</span> <span class="punct">(</span><span class="ident">s</span><span class="punct">.</span><span class="ident">line</span><span class="punct">[</span><span class="number">0</span><span class="punct">]</span> <span class="punct">!=</span> <span class="punct">&quot;</span><span class="string">/</span><span class="punct">&quot;)</span> <span class="keyword">then</span>
+    <span class="punct">[</span><span class="ident">ip_port</span><span class="punct">,</span> <span class="attribute">@nick</span><span class="punct">,</span> <span class="constant">Time</span><span class="punct">.</span><span class="ident">new</span><span class="punct">.</span><span class="ident">strftime</span><span class="punct">(&quot;</span><span class="string">%I:%M.%S</span><span class="punct">&quot;),</span> <span class="ident">s</span><span class="punct">.</span><span class="ident">line</span><span class="punct">]</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 0</span>
+ 
+<span class="ident">server_new_peers</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">proto</span><span class="punct">.</span><span class="ident">r_server_connect</span><span class="punct">)</span></pre>
+<pre class="code">
+
+<span class="comment"># RULE 25</span>
+ 
+<span class="comment"># RULE 5</span>
+ 
+<span class="ident">stdio</span> <span class="punct">&lt;</span> <span class="punct">(</span><span class="ident">server_new_peers</span><span class="punct">.</span><span class="ident">notin</span><span class="punct">(</span><span class="ident">peers</span><span class="punct">).</span><span class="ident">pro</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">c</span><span class="punct">|</span>
+  <span class="punct">[((&quot;</span><span class="string">User </span><span class="punct">&quot;</span> <span class="punct">+</span> <span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">)</span> <span class="punct">+</span> <span class="punct">&quot;</span><span class="string"> connected</span><span class="punct">&quot;)]</span>
+<span class="keyword">end</span><span class="punct">.~)</span>
+<span class="ident">stdio</span> <span class="punct">&lt;</span> <span class="punct">(</span><span class="ident">iof</span><span class="punct">.~)</span></pre>
+</body></html>

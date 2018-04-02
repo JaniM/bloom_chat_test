@@ -1,0 +1,11 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<pre class="code">
+
+<span class="comment"># RULE 21</span>
+ 
+<span class="comment"># RULE 14</span>
+ 
+<span class="ident">messages_unlinearized</span> <span class="punct">&lt;=</span> <span class="punct">(</span><span class="ident">messages_new</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">x</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">x</span><span class="punct">.</span><span class="ident">id</span><span class="punct">]</span> <span class="punct">})</span>
+<span class="ident">messages_unlinearized</span> <span class="punct">&lt;</span> <span class="punct">(-(</span><span class="ident">messages_unlinearized</span> <span class="punct">*</span> <span class="ident">messages_unldepth</span><span class="punct">).</span><span class="ident">pairs</span><span class="punct">(</span><span class="symbol">:id</span> <span class="punct">=&gt;</span> <span class="symbol">:id</span><span class="punct">).</span><span class="ident">lefts</span><span class="punct">)</span></pre>
+</body></html>

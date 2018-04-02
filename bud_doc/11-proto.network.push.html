@@ -1,0 +1,7 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<h1>Rule 11</h1><br>
+<pre class="code" style='font-size:20px'>
+<span class="ident">network</span><span class="punct">.</span><span class="ident">push</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">ifaces</span> <span class="punct">*</span> <span class="ident">s_request_node_list</span><span class="punct">).</span><span class="ident">pairs</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">iface</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">|</span>
+  <span class="punct">[</span><span class="ident">iface</span><span class="punct">.</span><span class="ident">ipp</span><span class="punct">,</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">rcv</span><span class="punct">,</span> <span class="punct">([&quot;</span><span class="string">REQUEST_NODE_LIST</span><span class="punct">&quot;]</span> <span class="punct">+</span> <span class="ident">x</span><span class="punct">.</span><span class="ident">msg</span><span class="punct">)]</span>
+<span class="keyword">end</span><span class="punct">)</span></pre>

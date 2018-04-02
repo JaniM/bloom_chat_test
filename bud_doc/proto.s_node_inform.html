@@ -1,0 +1,11 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<pre class="code">
+
+<span class="comment"># RULE 10</span>
+ 
+<span class="comment"># RULE 9</span>
+ 
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_node_inform</span> <span class="punct">&lt;</span> <span class="punct">(+(</span><span class="ident">peers</span> <span class="punct">*</span> <span class="ident">server_new_peers</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">p</span><span class="punct">,</span> <span class="ident">c</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="ident">p</span><span class="punct">]</span> <span class="punct">})</span>
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_node_inform</span> <span class="punct">&lt;</span> <span class="punct">(+</span><span class="ident">server_new_peers</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">c</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">c</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="punct">[</span><span class="ident">ip_port</span><span class="punct">,</span> <span class="attribute">@lifetime</span><span class="punct">]]</span> <span class="punct">})</span></pre>
+</body></html>

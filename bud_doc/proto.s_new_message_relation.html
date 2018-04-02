@@ -1,0 +1,11 @@
+<html><meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<head><link rel="stylesheet" type="text/css" href="style.css" /></head><body>
+<pre class="code">
+
+<span class="comment"># RULE 27</span>
+ 
+<span class="comment"># RULE 19</span>
+ 
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_new_message_relation</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">new_peers</span> <span class="punct">*</span> <span class="ident">dag</span><span class="punct">.</span><span class="ident">relations</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">p</span><span class="punct">,</span> <span class="ident">r</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">p</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="ident">r</span><span class="punct">]</span> <span class="punct">})</span>
+<span class="ident">proto</span><span class="punct">.</span><span class="ident">s_new_message_relation</span> <span class="punct">&lt;=</span> <span class="punct">((</span><span class="ident">dag</span><span class="punct">.</span><span class="ident">out_relations</span> <span class="punct">*</span> <span class="ident">peers</span><span class="punct">).</span><span class="ident">pairs</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">rel</span><span class="punct">,</span> <span class="ident">peer</span><span class="punct">|</span> <span class="punct">[</span><span class="ident">peer</span><span class="punct">.</span><span class="ident">addr</span><span class="punct">,</span> <span class="ident">rel</span><span class="punct">]</span> <span class="punct">})</span></pre>
+</body></html>
